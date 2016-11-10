@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,10 +8,44 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="rain.com.rain.MainActivity">
+    tools:context="rain.com.rain.RainActivity"
+    android:orientation="vertical"
+    android:background="@drawable/rain"
+    android:weightSum="1">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tvTemperature"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:text="78°"
+        android:layout_gravity="center"
+        android:typeface="serif"
+        android:textSize="50sp"
+        android:textColor="@android:color/darker_gray"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvTempDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CALM DOWN! WE ARE DETEREMING IF RAIN===TRUE."
+            android:textSize="18sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_weight="0.16"
+            android:paddingBottom="50dp"/>
+        <TextView
+            android:id="@+id/tvWindspeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="18sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_weight="0.16" />
+    </LinearLayout>
+</LinearLayout>
