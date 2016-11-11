@@ -35,6 +35,7 @@ public class Controller implements LocationListener, WeatherService {
             rainActivity.setTVTempDescription(weather.getDescription());
             rainActivity.setTVTemperature(weather.getTemperature().toString() + "°F");
             rainActivity.setTvWindspeed("Windspeed: " + weather.getWindSpeed().toString() + "MPH");
+            rainActivity.setBackground(RainActivity.SNOW_BACKGROUND);
         }
     }
 
@@ -67,4 +68,5 @@ public class Controller implements LocationListener, WeatherService {
     private void logEvent(String s) {
         Log.d(TAG, s);
     }
+
 }

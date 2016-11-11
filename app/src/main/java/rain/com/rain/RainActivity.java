@@ -13,14 +13,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RainActivity extends AppCompatActivity {
+    public static final String SNOW_BACKGROUND = "SNOW";
     TextView tvTempDescription, tvTemperature, tvWindspeed;
     private final String TAG = "MAIN";
     private Controller t;
-    final static int MY_PERMISSIONS_REQUEST_READ_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,12 @@ public class RainActivity extends AppCompatActivity {
         tvTempDescription = (TextView) findViewById(R.id.tvTempDescription);
         tvTemperature = (TextView) findViewById(R.id.tvTemperature);
         tvWindspeed = (TextView) findViewById(R.id.tvWindspeed);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initializeLocationListener();
     }
 
     private void initializeLocationListener() {
@@ -66,4 +73,18 @@ public class RainActivity extends AppCompatActivity {
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, t);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.removeUpdates(t);
+    }
+
+    public void setBackground(String type) {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_main);
+        if(type.equalsIgnoreCase(SNOW_BACKGROUND)) {
+            layout.setBackgroundResource(R.drawable.snow);
+
+        }
+    }
 }

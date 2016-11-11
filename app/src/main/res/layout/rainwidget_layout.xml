@@ -11,6 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="30sp"
         android:textColor="@android:color/darker_gray"
         android:text="74°F"/>
 
@@ -20,6 +22,8 @@
         android:layout_height="match_parent"
         android:textColor="@android:color/darker_gray"
         android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="30sp"
         android:text="Rain!"/>
 
 </LinearLayout>
