@@ -1,30 +1,22 @@
 package rain.com.rain;
 
-public class DarkSkyService implements WeatherService {
-    private double prevLongitude, prevLatitude;
+public class DarkSkyService extends WeatherService {
+
     /**
-     * Obtain the weather for the longitude/latitude
+     * Obtain the weather for the (latitude,longitude)
      *
-     * @param longitude oh really?
-     * @param latitude  oh yes
+     * @param latitude  degrees latitude where the current weather should be retrieved
+     * @param longitude degrees longitude where the current weather should be retrieved
      * @return A weather object
      */
     @Override
-    public Weather getWeather(double longitude, double latitude) {
+    public Weather getWeather(double latitude, double longitude) {
         Weather retVal = null;
+
+        // TODO do work
+
+        this.updateLocation(latitude, longitude);
         return retVal;
     }
 
-    /**
-     * Deteremines weather an API call should be made. We don't want to make all these calls if
-     * that person be moving 2 feet.
-     *
-     * @param longitude You'll get it
-     * @param latitude  Don't worry
-     * @return true iff api is necessary false otherwise
-     */
-    @Override
-    public boolean shouldUpdate(double longitude, double latitude) {
-        return false;
-    }
 }
