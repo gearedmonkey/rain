@@ -1,9 +1,12 @@
 package rain.com.rain;
 
+import android.location.Location;
+import android.os.AsyncTask;
+
 import org.jetbrains.annotations.Contract;
 
-public abstract class WeatherService {
-    static final double DISTANCE_TOLERANCE = 4; /* kilometers */
+public abstract class WeatherService extends AsyncTask<Location, Void, Weather> {
+    static final double DISTANCE_THRESHOLD = 1; /* kilometers */
     static final double EARTH_RADIUS = 6378.137; /* kilometers */
     protected double prevLongitude, prevLatitude;
 
@@ -42,7 +45,7 @@ public abstract class WeatherService {
      * @param longitude degrees longitude where the current weather should be retrieved
      * @return A weather object
      */
-    public abstract Weather getWeather(double latitude, double longitude);
+    protected abstract Weather getWeather(double latitude, double longitude);
 
     /**
      * Determines weather an API call should be made. We don't want to make all these calls if
@@ -53,6 +56,24 @@ public abstract class WeatherService {
      * @return true iff api is necessary false otherwise
      */
     public boolean shouldUpdate(double latitude, double longitude) {
-        return haversine(latitude, longitude, prevLatitude, prevLongitude) <= DISTANCE_TOLERANCE;
+        return true;
+//        return haversine(latitude, longitude, prevLatitude, prevLongitude) <= DISTANCE_THRESHOLD;
+    }
+
+    /**
+     * Gets the current weather conditions for the first Location parameter. The specified
+     * parameters are the parameters passed to {@link #execute(Object[])} by the caller
+     * of this task.
+     *
+     * @param params The parameters of the task.
+     * @return The weather at the first Location
+     * @see #onPreExecute()
+     * @see #onPostExecute
+     * @see #publishProgress
+     */
+    @Override
+    protected Weather doInBackground(Location... params) {
+        Location location = params[0];
+        return getWeather(location.getLatitude(), location.getLongitude());
     }
 }

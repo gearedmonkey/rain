@@ -6,16 +6,18 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 
-public class Controller implements LocationListener, WeatherService {
+public class Controller extends WeatherService implements LocationListener {
     private final String TAG = "Controller";
     private WeatherService weatherService;
     private RainActivity rainActivity;
     private Random rGen;
+
     public Controller(RainActivity rainAcitivty) {
         this.rainActivity = rainAcitivty;
-        this.weatherService = this;//todo why is this even legal???
+        this.weatherService = new DarkSkyService(rainAcitivty);
         rGen = new Random();
     }
 
@@ -23,12 +25,22 @@ public class Controller implements LocationListener, WeatherService {
     public void onLocationChanged(Location location) {
         double lat = location.getLatitude();
         double longitude = location.getLongitude();
-        if(weatherService.shouldUpdate(lat, longitude)) {
-            Weather weather = weatherService.getWeather(lat, longitude);
-            rainActivity.setTVTempDescription(weather.getDescription());
-            rainActivity.setTVTemperature(weather.getTemperature().toString() + "°F");
-            rainActivity.setTvWindspeed("Windspeed: " + weather.getWindSpeed().toString() + "MPH");
-            rainActivity.setBackground(RainActivity.SNOW_BACKGROUND);
+        if (weatherService.shouldUpdate(lat, longitude)) {
+            try {
+                Weather weather = weatherService.execute(location).get();
+                if (weather != null) {
+                    rainActivity.setTVTempDescription(weather.getDescription());
+                    rainActivity.setTVTemperature(weather.getTemperature() + "°F");
+                    rainActivity.setTvWindspeed(
+                            "Windspeed: " + weather.getWindSpeed() + "mph");
+                    rainActivity.setBackground(RainActivity.SNOW_BACKGROUND);
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                Log.e(TAG,
+                      "Something bad happened while trying to download weather information",
+                      e);
+                e.printStackTrace();
+            }
         }
     }
 
@@ -58,6 +70,7 @@ public class Controller implements LocationListener, WeatherService {
     public boolean shouldUpdate(double latitude, double longitude) {
         return true;
     }
+
     private void logEvent(String s) {
         Log.d(TAG, s);
     }

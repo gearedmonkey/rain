@@ -3,11 +3,11 @@ package rain.com.rain;
 
 public class Weather {
 
-    public Integer windSpeed, visibility,temperature, precipProbability, cloudCover;
-    public String precipType;
-    public String description;
+    private double windSpeed, visibility, temperature, precipProbability, cloudCover;
+    private String precipType;
+    private String description;
 
-    public Weather(Integer temperature,Integer windSpeed, Integer visibility,  Integer precipProbability, Integer cloudCover, String precipType, String description) {
+    public Weather(double temperature,double windSpeed, double visibility,  double precipProbability, double cloudCover, String precipType, String description) {
         this.windSpeed = windSpeed;
         this.visibility = visibility;
         this.temperature = temperature;
@@ -17,41 +17,41 @@ public class Weather {
         this.description = description;
     }
 
-    public Integer getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(Integer windSpeed) {
+    public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
     }
 
-    public Integer getVisibility() {
+    public double getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(Integer visibility) {
+    public void setVisibility(double visibility) {
         this.visibility = visibility;
     }
-    public Integer getTemperature(){
+    public double getTemperature(){
         return temperature;
     }
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
-    public Integer getPrecipProbability() {
+    public double getPrecipProbability() {
         return precipProbability;
     }
 
-    public void setPrecipProbability(Integer precipProbability) {
+    public void setPrecipProbability(double precipProbability) {
         this.precipProbability = precipProbability;
     }
 
-    public Integer getCloudCover() {
+    public double getCloudCover() {
         return cloudCover;
     }
 
-    public void setCloudCover(Integer cloudCover) {
+    public void setCloudCover(double cloudCover) {
         this.cloudCover = cloudCover;
     }
 
