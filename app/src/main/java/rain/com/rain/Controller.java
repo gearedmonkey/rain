@@ -17,7 +17,6 @@ public class Controller extends WeatherService implements LocationListener {
 
     public Controller(RainActivity rainAcitivty) {
         this.rainActivity = rainAcitivty;
-        this.weatherService = new DarkSkyService(rainAcitivty);
         rGen = new Random();
     }
 
@@ -25,6 +24,7 @@ public class Controller extends WeatherService implements LocationListener {
     public void onLocationChanged(Location location) {
         double lat = location.getLatitude();
         double longitude = location.getLongitude();
+        this.weatherService = new DarkSkyService(rainActivity);
         if (weatherService.shouldUpdate(lat, longitude)) {
             try {
                 Weather weather = weatherService.execute(location).get();

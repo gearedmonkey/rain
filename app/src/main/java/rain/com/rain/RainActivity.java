@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +82,7 @@ public class RainActivity extends AppCompatActivity {
     }
 
     public void setBackground(String type) {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_main);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_main);
         if(type.equalsIgnoreCase(SNOW_BACKGROUND)) {
             layout.setBackgroundResource(R.drawable.snow);
 
