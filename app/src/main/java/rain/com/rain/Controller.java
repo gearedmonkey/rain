@@ -1,9 +1,14 @@
 package rain.com.rain;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -34,6 +39,7 @@ public class Controller extends WeatherService implements LocationListener {
                     rainActivity.setTvWindspeed(
                             "Windspeed: " + weather.getWindSpeed() + "mph");
                     rainActivity.setBackground(RainActivity.SNOW_BACKGROUND);
+                    updateWidget(weather);
                 }
             } catch (InterruptedException | ExecutionException e) {
                 Log.e(TAG,
@@ -42,6 +48,16 @@ public class Controller extends WeatherService implements LocationListener {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void updateWidget(Weather w) {
+        Context context = rainActivity;
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.rainwidget_layout);
+        ComponentName thisWidget = new ComponentName(context, RainWidgetProvider.class);
+        remoteViews.setTextViewText(R.id.widgetDescription, w.getDescription());
+        remoteViews.setTextViewText(R.id.widgetTemp, Double.toString(w.getTemperature()));
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
     }
 
     @Override

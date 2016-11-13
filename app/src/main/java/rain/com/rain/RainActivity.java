@@ -35,12 +35,6 @@ public class RainActivity extends AppCompatActivity {
         tvWindspeed = (TextView) findViewById(R.id.tvWindspeed);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initializeLocationListener();
-    }
-
     private void initializeLocationListener() {
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -74,12 +68,6 @@ public class RainActivity extends AppCompatActivity {
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, t);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.removeUpdates(t);
-    }
 
     public void setBackground(String type) {
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_main);
