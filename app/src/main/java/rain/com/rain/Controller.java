@@ -34,7 +34,7 @@ public class Controller extends WeatherService implements LocationListener {
             try {
                 Weather weather = weatherService.execute(location).get();
                 if (weather != null) {
-                    rainActivity.setTVTempDescription(weather.getDescription());
+                    rainActivity.setTVTempDescription(SassyGenerator.getSass(weather.getTemperature()));
                     rainActivity.setTVTemperature(weather.getTemperature() + "°F");
                     rainActivity.setTvWindspeed(
                             "Windspeed: " + weather.getWindSpeed() + "mph");
@@ -55,7 +55,7 @@ public class Controller extends WeatherService implements LocationListener {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.rainwidget_layout);
         ComponentName thisWidget = new ComponentName(context, RainWidgetProvider.class);
-        remoteViews.setTextViewText(R.id.widgetDescription, w.getDescription());
+        remoteViews.setTextViewText(R.id.widgetDescription, SassyGenerator.getSass(w.getTemperature()));
         remoteViews.setTextViewText(R.id.widgetTemp, Double.toString(w.getTemperature()));
         appWidgetManager.updateAppWidget(thisWidget, remoteViews);
     }
