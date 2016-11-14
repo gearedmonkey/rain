@@ -41,6 +41,12 @@ public class RainActivity extends AppCompatActivity {
         tvTemperature = (TextView) findViewById(R.id.tvTemperature);
         tvWindspeed = (TextView) findViewById(R.id.tvWindspeed);
         btnSpeech = (Button) findViewById(R.id.btnTextSpeech);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         t1 = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
